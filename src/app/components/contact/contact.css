@@ -1,0 +1,29 @@
+.navLogo{
+    position: relative;
+    color:  var(--title-color);
+    font-weight: var(--font-semi-bold);
+    font-size: var(--h1-font-size);
+    font-family: 'Dancing Script', cursive;
+}
+
+.contact-content{
+    justify-content: center;
+    display: flex;
+    gap: 1rem;
+}
+
+.contact-item{
+    border: 1px solid var(--minor-color);
+    width: 20vw;
+    height: 20vw;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-icon{
+    color: #FF8DC7;
+    font-size: 3.25rem;
+}

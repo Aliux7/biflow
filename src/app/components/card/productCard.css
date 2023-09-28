@@ -1,0 +1,19 @@
+.productCardButton{
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    color: var(--minor-color);
+    cursor: pointer;
+}
+
+.productCardButton:hover{
+    color: var(--minor-hover-color);
+}
+
+.cardProduct{
+    border: 0;
+    cursor: pointer;
+}
+.cardProduct:hover{
+    box-shadow: 0 6px 6px rgba(0,0,0,0.2);
+}
