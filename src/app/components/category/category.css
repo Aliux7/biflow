@@ -5,10 +5,19 @@
 
 .left-container{
     width: 35%;
+    transition: 1s;
+}
+
+.left-container.animate,
+.right-container.animate{
+    transform: translateY(10%);
+    opacity: 0;
+    filter: blur(3px);
 }
 
 .right-container{
     width: 65%;
+    transition: 1s;
 }
 
 .left-image-content{

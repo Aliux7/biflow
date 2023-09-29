@@ -1,7 +1,13 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import "./contact.css";
 
 const Contact = () => {
+
+  const [animate, setAnimate] = useState(true);
+  useEffect(() => {
+    setAnimate(false);
+  }, []);
   return (
     <section className="contact section">
       <div className="contact-container">
@@ -11,17 +17,17 @@ const Contact = () => {
           </h2>
         </div>
         <div className="contact-content">
-          <div className="contact-item">
+          <div className={`contact-item ${animate ? "animate" : ""}`}>
             <i className="uil uil-whatsapp-alt contact-icon"></i>
             <h3>Whatsapp</h3>
             <p>+62-8383838 322342</p>
           </div>
-          <div className="contact-item">
+          <div className={`contact-item ${animate ? "animate" : ""}`}>
             <i className="uil uil-line contact-icon"></i>
             <h3>Line</h3>
             <p>+62-8383838 322342</p>
           </div>
-          <div className="contact-item">
+          <div className={`contact-item ${animate ? "animate" : ""}`}>
             <i className="uil uil-instagram-alt contact-icon"></i>
             <h3>Instagram</h3>
             <p>+62-8383838 322342</p>

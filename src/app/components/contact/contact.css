@@ -21,6 +21,13 @@
     border-radius: 4px;
     display: flex;
     flex-direction: column;
+    transition: 1s;
+}
+
+.contact-item.animate{
+    transform: translateY(10%);
+    opacity: 0;
+    filter: blur(3px);
 }
 
 .contact-icon{

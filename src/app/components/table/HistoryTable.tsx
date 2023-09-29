@@ -41,7 +41,7 @@ export default function DataTable({ phone }: PhoneProps) {
           const dateOrder = new Date(docData.dateOrder);
           const formattedDate = dateOrder.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
           return {
-            id: doc.id, // Add the document ID as id
+            id: doc.id,
             phone: docData.phone,
             flower: docData.flower,
             quantity: docData.quantity,
