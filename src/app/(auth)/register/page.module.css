@@ -140,3 +140,65 @@
     font-weight: 300;
 }
 
+.successPopup {
+    position: fixed;
+    bottom: 20px;
+    left: -200px; 
+    background-color: var(--minor-color);
+    color: #fff;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    animation: slideInRight 1s ease-out forwards, slideStay 1s ease-out 1s forwards, slideOutLeft 1s ease-out 2s forwards;
+}
+  
+.successPopup span {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.errorPopup {
+    position: fixed;
+    bottom: 20px;
+    left: -200px; 
+    background-color:#c0392b;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    animation: slideInRight 1s ease-out forwards, slideStay 1s ease-out 1s forwards, slideOutLeft 1s ease-out 2s forwards;
+}
+  
+.errorPopup span {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+@keyframes slideInRight {
+    from {
+      left: -200px;
+    }
+    to {
+      left: 20px;
+    }
+}
+  
+@keyframes slideStay {
+    from {
+      left: 20px; 
+    }
+    to {
+      left: 20px;
+    }
+}
+  
+@keyframes slideOutLeft {
+    from {
+      left: 20px;
+    }
+    to {
+      left: -200px;
+    }
+}
