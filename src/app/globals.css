@@ -1,5 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --header-height: 3rem;
 
@@ -9,12 +13,12 @@
   --body-color: #ffffff;
   --second-color: #eeeeee;
   --third-color: #dddddd;
-  --minor-color: #FF8DC7;
+  --minor-color: #ff8dc7;
   --minor-hover-color: #ffcdde;
   --overlay-color: #eeeeeec9;
 
   /*========== Font and typography ==========*/
-  --body-font: "Poppins", sans-serif;
+  --body-font: 'Poppins', sans-serif;
 
   /*.5rem = 8px | 1rem = 16px ...*/
   --big-font-size: 3.5rem;
@@ -49,7 +53,7 @@
   --z-modal: 1000;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --title-color: #fff;
   --title-color-dark: grey;
   --text-color: #fff;
@@ -76,7 +80,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 html {
@@ -186,27 +190,25 @@ img {
   section .animate {
     opacity: 0;
     filter: blur(3px);
-    transition: .5s;
+    transition: 0.5s;
   }
-  
+
   section.show-animate .animate {
     opacity: 1;
     filter: blur(0);
   }
-  
+
   section.animate {
     opacity: 0;
     filter: blur(3px);
-    transition: .5s;
+    transition: 0.5s;
   }
-  
+
   section.show-animate.animate {
     opacity: 1;
     filter: blur(0);
   }
 }
-
-
 
 /*=============== BREAKPOINTS ===============*/
 /* For large devices */
