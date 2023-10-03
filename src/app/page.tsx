@@ -1,9 +1,8 @@
-
-import Category from "./components/category/Category";
-import Featured from "./components/featured/Featured";
-import Footer from "./components/footer/Footer";
-import Header from "./components/header/Header";
-import './globals.css'
+import Featured from './components/featured/Featured';
+import Footer from './components/footer/Footer';
+import Header from './components/header/Header';
+import './globals.css';
+import MainHero from './components/hero/Hero';
 // import { EncryptStorage } from 'encrypt-storage';
 
 // export const encryptStorage = new EncryptStorage('binusflower', {
@@ -11,15 +10,13 @@ import './globals.css'
 // });
 
 export default function Home() {
-
   return (
     <>
-      <Header/>
+      <Header />
       <main>
-        <Category/>
-        <Featured/>
+        <Featured />
       </main>
-      <Footer/>
+      <Footer />
     </>
-  )
+  );
 }
