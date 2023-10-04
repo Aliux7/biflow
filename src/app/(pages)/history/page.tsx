@@ -14,31 +14,11 @@ const page = () => {
   const router = useRouter()
   const [phone, setPhone] = useState("");
   const [showTable, setShowTable] = useState(false);
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-  const [showErrorPopup, setShowErrorPopup] = useState(false);
   
   const [animate, setAnimate] = useState(true);
   useEffect(() => {
     setAnimate(false);
   }, []);
-
-  const jobData = 
-    {
-      name: "Preparing Food",
-      status: "unfinished",
-      category: "Kitchen Staff",
-      patient: "",
-      room: "",
-      bed: "",
-      staff: "",
-    };
-
-  const registerButton = async () => {
-    const newJobRef = await addDoc(collection(fireStore, 'order'), jobData);
-    console.log(newJobRef);
-    // router.push('/')
-  }
-
 
   return (
     <div className={styles.bgPosition}>

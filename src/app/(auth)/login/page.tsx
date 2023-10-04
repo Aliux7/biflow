@@ -29,7 +29,7 @@ const page = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         encryptStorage.setItem("email", userCredential.user.email);
-        router.push('/admin')
+        router.push('/order')
       }).catch((error) => {
         setPassword("");
         setEmail("");
