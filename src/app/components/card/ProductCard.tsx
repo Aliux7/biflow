@@ -2,7 +2,6 @@
 import React from 'react';
 import Image from 'next/image';
 import product from '../../assets/product/5.jpg';
-import './productCard.css';
 import { useRouter } from 'next/navigation';
 
 interface ProductComponentProps {
@@ -10,46 +9,27 @@ interface ProductComponentProps {
 }
 
 export default function ProductCard(props: ProductComponentProps) {
-  const router = useRouter();
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
-      <a href="#">
-        <Image className="rounded-t-lg" src={product} alt="" />
-      </a>
-      <div className="p-5">
-        <a href="#">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Tai Flower
-          </h5>
-        </a>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order.
+    <div className="mx-auto mt-11 w-full transform rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-lg">
+      <Image
+        className="h-48 w-full object-cover object-center"
+        src={product}
+        alt="Product Image"
+      />
+      <div className="p-4">
+        <h2 className="mb-2 text-lg font-medium text-gray-900">Tai Flower</h2>
+        <p className="mb-2 text-base text-gray-700">
+          Product description goes here.
         </p>
-        <a
-          href="#"
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          onClick={(e) => {
-            props.setOverlay(true);
-          }}
-        >
-          Order
-          <svg
-            className="w-3.5 h-3.5 ml-2"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-        </a>
+        <div className="flex items-center">
+          <p className="mr-2 text-lg font-semibold text-gray-900">Rp16.000</p>
+          <p className="text-base  font-medium text-gray-500 line-throug">
+            Rp20000
+          </p>
+          <p className="ml-auto text-base font-medium text-green-500">
+            20% off
+          </p>
+        </div>
       </div>
     </div>
   );

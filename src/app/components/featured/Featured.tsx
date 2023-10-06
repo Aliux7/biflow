@@ -1,24 +1,21 @@
 'use client';
 import React, { useState } from 'react';
-import './featured.css';
 import ProductCard from '../card/ProductCard';
 import InputOrder from '../form/InputOrder';
 
 const Featured = () => {
   const [openOverlay, setOpenOverlay] = useState(false);
   return (
-    <section className="category section">
-      <div className="featured-container">
+    <section className="category" id="featured">
+      <div className="px-4">
         <div style={{ marginBottom: '1rem' }}>
-          <h2 className="section-title">
+          <h2 className="font-handwritten text-5xl text-center pb-0">
             <a href="/" className="navLogo">
-              Featured{' '}
-              <span style={{ color: 'var(--minor-color)' }}>Products</span>
+              Featured <span className="text-pink-500">Products</span>
             </a>
           </h2>
         </div>
-        <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-4">
-          <ProductCard setOverlay={setOpenOverlay} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           <ProductCard setOverlay={setOpenOverlay} />
           <ProductCard setOverlay={setOpenOverlay} />
           <ProductCard setOverlay={setOpenOverlay} />
