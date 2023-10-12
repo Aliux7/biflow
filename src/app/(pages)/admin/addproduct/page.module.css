@@ -28,7 +28,6 @@
     opacity: 1;
     filter: blur(0);
     z-index: 101;
-    background-color: #f6f6f6b7;   
     padding: 2rem;
     border-radius: 1rem;
 }

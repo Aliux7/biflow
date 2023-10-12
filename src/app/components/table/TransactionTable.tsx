@@ -3,15 +3,7 @@ import React, { useState, useEffect } from "react";
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
 import { auth, fireStore } from '../../../firebase/config';
-
-const columns: GridColDef[] = [
-  { field: 'flower', headerName: 'Flower', width: 130 },
-  { field: 'quantity', headerName: 'Quantity', width: 130 },
-  { field: 'dateOrder', headerName: 'Date Order', width: 200 },
-  { field: 'name', headerName: 'Name', width: 130 },
-  { field: 'room', headerName: 'Room', width: 130 },
-  { field: 'status', headerName: 'Status', width: 130 },
-];
+import InputOrder from "../form/InputOrder";
 
 interface OrderData {
   id: string;
@@ -26,10 +18,39 @@ interface OrderData {
 
 interface StatusProps {
   status: string;
+  setOverlay: (value: boolean) => void;
 }
-export default function DataTable({ status }: StatusProps) {
-  
+export default function DataTable({ status, setOverlay }: StatusProps) {
+
   const [rows, setRows] = useState<OrderData[]>([]);
+
+  const columns: GridColDef[] = [
+    { field: 'flower', headerName: 'Flower', width: 130 },
+    { field: 'quantity', headerName: 'Quantity', width: 130 },
+    { field: 'dateOrder', headerName: 'Date Order', width: 200 },
+    { field: 'name', headerName: 'Name', width: 130 },
+    { field: 'room', headerName: 'Room', width: 130 },
+    { field: 'status', headerName: 'Status', width: 130 },
+    { field: 'actions', headerName: '', width: 150,
+      renderCell: (params) => { 
+        const handleClickUpdate = () => {
+          console.log("true");
+          setOverlay(true);
+        }
+        if(params.row.status === "Done"){
+          return null;
+        }
+            
+        return (
+          <div>
+            <button onClick={handleClickUpdate} className="bg-transparent hover:bg-[#ff8dc7] text-[#ff8dc7] font-semibold hover:text-white py-2 px-4 border border-[#ff8dc7] hover:border-transparent rounded">
+              Update
+            </button>
+          </div>
+        );
+      },
+    },
+  ];
   
   useEffect(() => {
     const fetchData = async () => {

@@ -11,6 +11,7 @@ import { SnackbarProvider } from "notistack";
 import { encryptStorage } from "../../../(auth)/login/page"
 import TransactionTable from "../../../components/table/TransactionTable";
 import AdminHeader from '../../../components/header/AdminHeader';
+import InputProduct from "@/app/components/form/InputProduct";
 
 const page = () => {
   
@@ -25,10 +26,9 @@ const page = () => {
     <div className={styles.bgPosition}>
       <AdminHeader email={email}/>
       <div className={`${styles.filteredResult} ${animate ? styles.animate : ""}`}>
-          <TransactionTable status="Done" setOverlay={setOpenOverlay}/>
+        <InputProduct/>
       </div>
     </div>
-    // <div>{email}</div>
   );
 };
 

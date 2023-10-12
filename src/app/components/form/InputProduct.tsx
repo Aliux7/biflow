@@ -6,12 +6,7 @@ import { useRouter } from 'next/navigation'
 import { addDoc, collection } from "firebase/firestore";
 import { auth, fireStore } from '../../../firebase/config';
 
-
-interface ProductComponentProps {
-  setOverlay: (value: boolean) => void;
-}
-
-export default function InputOrder(props: ProductComponentProps) {
+export default function InputProduct() {
     
   const router = useRouter();
   const [phone, setPhone] = useState("");
@@ -42,10 +37,10 @@ export default function InputOrder(props: ProductComponentProps) {
     await addDoc(collection(fireStore, 'order'), orderData);
     window.location.reload(); 
   }
-
+  
   return (
-    <div className="overlay" onClick={(e) => {props.setOverlay(false)}}>
-      <div className={`${styles.formContainer} ${animate ? styles.animate : ""}`} onClick={(e) => e.stopPropagation()}>
+    <div>
+      <div className={styles.formContainer} onClick={(e) => e.stopPropagation()}>
         <div className={styles.form}>
           <a href="#" className={styles.navLogo}>Bi<span style={{color:'var(--minor-color)'}}>Flow</span></a>
           <div className={styles.inputBox}>

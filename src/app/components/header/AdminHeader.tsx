@@ -27,8 +27,8 @@ const AdminHeader = ({ email }: EmailProps) => {
                             </a>
                         </li>
                         <li className="nav-item" style={{width:'max-content'}}>
-                            <a href="/admin/order" className="nav-link">
-                                <span className='nav-title'>Add Product</span>
+                            <a href="/admin/addproduct" className="nav-link">
+                                <span className='nav-title'>Product</span>
                             </a>
                         </li>
                         <li className="nav-item" style={{width:'max-content'}}>

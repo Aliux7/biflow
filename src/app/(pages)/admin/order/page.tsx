@@ -11,11 +11,13 @@ import { SnackbarProvider } from "notistack";
 import { encryptStorage } from "../../../(auth)/login/page"
 import TransactionTable from "../../../components/table/TransactionTable";
 import AdminHeader from '../../../components/header/AdminHeader';
+import InputOrder from "@/app/components/form/InputOrder";
 
 const page = () => {
   
   const email = encryptStorage.getItem("email")
   const [animate, setAnimate] = useState(true);
+  const [openOverlay, setOpenOverlay] = useState(false);
   useEffect(() => {
     setAnimate(false);
   }, []);
@@ -24,8 +26,12 @@ const page = () => {
     <div className={styles.bgPosition}>
       <AdminHeader email={email}/>
       <div className={`${styles.filteredResult} ${animate ? styles.animate : ""}`}>
-          <TransactionTable status="pending"/>
+          <TransactionTable status="Pending" setOverlay={setOpenOverlay}/>
       </div>
+      
+      {openOverlay && (
+        <InputOrder setOverlay={setOpenOverlay}/>
+      )}
     </div>
   );
 };

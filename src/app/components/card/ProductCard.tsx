@@ -17,7 +17,7 @@ export default function ProductCard(props: ProductComponentProps) {
         alt="Product Image"
       />
       <div className="p-4">
-        <h2 className="mb-2 text-lg font-medium text-gray-900">Tai Flower</h2>
+        <h2 className="mb-2 text-lg font-medium text-gray-900">Beta Flower</h2>
         <p className="mb-2 text-base text-gray-700">
           Product description goes here.
         </p>
