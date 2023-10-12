@@ -6,11 +6,11 @@ import { useRouter } from 'next/navigation'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import Link from 'next/link'
 import { auth, fireStore } from '../../../firebase/config';
-import { EncryptStorage } from 'encrypt-storage';
+// import { EncryptStorage } from 'encrypt-storage';
 
-export const encryptStorage = new EncryptStorage('binusflower', {
-  encAlgorithm: 'Rabbit',
-});
+// export const encryptStorage = new EncryptStorage('binusflower', {
+//   encAlgorithm: 'Rabbit',
+// });
 
 const page = () => {
 
@@ -28,7 +28,13 @@ const page = () => {
   const loginButton = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        encryptStorage.setItem("email", userCredential.user.email);
+        // encryptStorage.setItem("email", userCredential.user.email);
+        
+        if (userCredential?.user?.email) {
+          localStorage.setItem("email", userCredential?.user?.email);
+        }else{
+          localStorage.setItem("email", "");
+        }
         router.push('/admin/order')
       }).catch((error) => {
         setPassword("");

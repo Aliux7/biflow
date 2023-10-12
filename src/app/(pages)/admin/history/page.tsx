@@ -8,13 +8,15 @@ import { addDoc, collection } from "firebase/firestore";
 import { auth, fireStore } from '../../../../firebase/config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { SnackbarProvider } from "notistack";
-import { encryptStorage } from "../../../(auth)/login/page"
+// import { encryptStorage } from "../../../(auth)/login/page"
 import TransactionTable from "../../../components/table/TransactionTable";
 import AdminHeader from '../../../components/header/AdminHeader';
 
 const page = () => {
   
-  const email = encryptStorage.getItem("email")
+  // const email = encryptStorage.getItem("email")
+  const emailProp = localStorage.getItem("email");
+  const email = emailProp ? emailProp : "Default Email";
   const [openOverlay, setOpenOverlay] = useState(false);
   const [animate, setAnimate] = useState(true);
   useEffect(() => {
