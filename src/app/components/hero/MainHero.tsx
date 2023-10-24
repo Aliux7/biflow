@@ -1,8 +1,20 @@
+'use client';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import logoname from '../../assets/logo/logo-name.svg';
 import Image from 'next/image';
 
 const MainHero = () => {
+  const router = useRouter();
+
+  const handleOrderClick = () => {
+    router.push('/shop');
+  };
+
+  const handleHistoryClick = () => {
+    router.push('/history');
+  };
+
   return (
     <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
       <div className="sm:text-center lg:text-left">
@@ -16,20 +28,20 @@ const MainHero = () => {
         </p>
         <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
           <div className="rounded-md shadow">
-            <a
-              href="url"
+            <button
+              onClick={handleOrderClick}
               className={`w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-pink-500 hover:bg-border hover:text-primary md:py-4 md:text-lg md:px-10`}
             >
-              Primary
-            </a>
+              Order
+            </button>
           </div>
           <div className="mt-3 sm:mt-0 sm:ml-3">
-            <a
-              href="url"
+            <button
+              onClick={handleHistoryClick}
               className={`w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md border-primary text-white bg-pink-300 hover:bg-border hover:text-primary md:py-4 md:text-lg md:px-10`}
             >
-              Secondary
-            </a>
+              History
+            </button>
           </div>
         </div>
       </div>

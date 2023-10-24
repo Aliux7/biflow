@@ -1,4 +1,3 @@
-import Featured from './components/featured/Featured';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import './globals.css';
@@ -7,11 +6,7 @@ import MainHeroImage from './components/hero/MainHeroImage';
 import FAQ from './components/faq/FAQ';
 import About from './components/about/About';
 import Tutorial from './components/tutoriial/Tutorial';
-// import { EncryptStorage } from 'encrypt-storage';
-
-// export const encryptStorage = new EncryptStorage('binusflower', {
-//   encAlgorithm: 'Rabbit',
-// });
+import Featured from './components/featured/Featured';
 
 export default function Home() {
   return (
