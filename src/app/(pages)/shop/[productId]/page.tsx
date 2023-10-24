@@ -75,7 +75,7 @@ export default function ProductDetail({
                 <p>{productData?.desc}</p>
                 <p className="mb-8">Price: Rp{productData?.discount_price}</p>
               </div>
-              <Stepper />
+              <Stepper name={productData?.name} />
             </div>
           </div>
         </div>
