@@ -11,7 +11,11 @@ interface Addon {
   price: number;
 }
 
-const Stepper = () => {
+interface ProductComponentProps {
+  name: string;
+}
+
+const Stepper = (props: ProductComponentProps) => {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -60,7 +64,7 @@ const Stepper = () => {
   });
 
   const [addons, setAddons] = useState<Addon[]>([]);
-  const [selectedAddons, setSelectedAddons] = useState<Addon[]>([]);
+  const [selectedAddonIds, setSelectedAddonIds] = useState<string[]>([]);
 
   // Fetch addons data from Firestore
   useEffect(() => {
@@ -78,8 +82,6 @@ const Stepper = () => {
 
     fetchAddons();
   }, []);
-
-  const [selectedAddonIds, setSelectedAddonIds] = useState<string[]>([]);
 
   const handleAddonCheckboxChange = (addonId: string) => {
     setSelectedAddonIds((prevSelectedAddonIds) => {
@@ -262,6 +264,10 @@ const Stepper = () => {
 
     const currentDate = new Date();
     const formattedDateTime = currentDate.toLocaleString();
+    const selectedAddons = addons.filter((addon) =>
+      selectedAddonIds.includes(addon.id)
+    );
+
     const selectedAddonNames = selectedAddons
       .map((addon) => addon.name)
       .join(', ');
@@ -270,6 +276,7 @@ const Stepper = () => {
       color: selectedOption === 'others' ? customInput : selectedOption,
       orderDate: formattedDateTime,
       addons: selectedAddonNames,
+      product: props.name,
     };
 
     try {
