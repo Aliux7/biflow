@@ -102,17 +102,12 @@ export default function ProductDetail({
           <div className="flex flex-col m-12 text-center lg:m-12 md:flex-none md:text-left md:relative md:m-0 md:mt-16 lg:flex-none lg:text-left lg:relative xl:flex-none xl:text-left xl:relative print:flex-none print:text-left print:relative print:m-0 print:mt-6 print:text-sm">
             Take a screenshot of this submitted form and send it to our whatsapp
             here, then we'll contact you for the payment! Thankyou~!
-            <div>Whatsapp: 6285887530911</div>
+            <div>Whatsapp: +6285887530911</div>
             <button
               onClick={openLinkInNewTab}
-              className="text-base hover:text-white focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-        hover:bg-pink-600  
-        bg-pink-100 
-        text-pink-700 
-        border duration-200 ease-in-out 
-        border-pink-600 transition"
+              className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-pink-500 hover:bg-border hover:text-primary md:py-2 md:text-lg md:px-10"
             >
-              Open Whatsapp
+              Click to Open Whatsapp
             </button>
           </div>
         </header>

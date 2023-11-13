@@ -4,26 +4,34 @@ import React, { useState } from 'react';
 const FAQ = () => {
   const faqItems = [
     {
-      question: 'How can I pay for my appointment ?',
+      question: 'What is Biflow?',
       answer:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, eum quae. Harum officiis reprehenderit ex quia ducimus minima id provident molestias optio nam vel, quidem iure voluptatem, repellat et ipsa.',
+        'Biflow is an online platform that allows you to send flower bouquets anonymously. It’s a unique way to express your feelings through the beauty of flowers.',
     },
     {
-      question: 'What can I expect at my first consultation ?',
-      answer: 'Answer 2',
+      question: 'How does Biflow maintain anonymity?',
+      answer:
+        'When you choose to send a flower through Biflow, your identity remains hidden. The receiver gets a beautiful flower and a bottled text with a secret hand sign, but they won’t know who it’s from unless you choose to reveal yourself.',
     },
     {
-      question: 'What are your opening hours ?',
-      answer: 'Answer 3',
+      question: 'What is the “bottled text”?',
+      answer:
+        'The bottled text is a small, customized message that comes with each flower. It contains a secret hand sign from the sender, adding a personal touch and an element of intrigue to the gift.',
     },
     {
-      question: 'Do I need a referral ?',
-      answer: 'Answer 4',
+      question: 'What types of flowers can I send?',
+      answer:
+        'Biflow offers a wide range of flower bouquets in different colors and styles. You can choose the one that best expresses your feelings.',
     },
     {
-      question:
-        'Is the cost of the appointment covered by private health insurance ?',
-      answer: 'Answer 5',
+      question: 'What if the recipient can’t guess who the flowers are from?',
+      answer:
+        'That’s part of the fun! The secret hand sign in the bottled text provides a clue, but it’s up to the receiver to guess who their secret admirer might be.',
+    },
+    {
+      question: 'Can I reveal my identity later?',
+      answer:
+        'Absolutely! While Biflow provides a platform for anonymous gifting, the decision to reveal your identity at a later time is entirely up to you.',
     },
   ];
 

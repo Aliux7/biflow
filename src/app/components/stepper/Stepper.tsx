@@ -1,10 +1,12 @@
-import React, { useState, FormEvent, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { fireStore } from '../../../firebase/config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
-
+import { Paintable } from '../Paintable/Paintable';
+import { PaintableRef } from '../Paintable/PaintableRef';
+import './canvas.css';
 interface Addon {
   id: string;
   name: string;
@@ -118,12 +120,12 @@ const Stepper = (props: ProductComponentProps) => {
                 viewBox="0 0 20 20"
                 fill="currentColor"
                 stroke="currentColor"
-                stroke-width="1"
+                strokeWidth="1"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </div>
@@ -160,7 +162,24 @@ const Stepper = (props: ProductComponentProps) => {
     setCustomInput(e.target.value);
   };
 
+  const paintableRef = useRef<PaintableRef>(null);
+  const [color, setColor] = useState('#0000FF');
+  const [active, setActive] = useState(true);
+  const [thickness, setThickness] = useState(5);
+  const [useEraser, setUseEraser] = useState(false);
+  const [imageResult, setImageResult] = useState('');
+
+  const saveImage = () => {
+    if (step === 1) paintableRef.current?.save();
+  };
+
+  const changeStep = (step: number) => {
+    saveImage();
+    setStep(step);
+  };
+
   const nextStep = () => {
+    saveImage();
     const validationErrors = {
       qtyAndColor: '',
       time: '',
@@ -262,6 +281,17 @@ const Stepper = (props: ProductComponentProps) => {
       return;
     }
 
+    toast.info('Processing order...', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
     const currentDate = new Date();
     const formattedDateTime = currentDate.toLocaleString();
     const selectedAddons = addons.filter((addon) =>
@@ -277,10 +307,22 @@ const Stepper = (props: ProductComponentProps) => {
       orderDate: formattedDateTime,
       addons: selectedAddonNames,
       product: props.name,
+      image: imageResult,
     };
 
     try {
       const docRef = await addDoc(collection(fireStore, 'order'), orderData);
+      toast.success('Order submitted', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+
       router.push(`/order/${docRef.id}`);
     } catch (error) {
       console.error('Error adding document: ', error);
@@ -310,7 +352,7 @@ const Stepper = (props: ProductComponentProps) => {
                   : 'text-pink-600'
                 : 'text-gray-500'
             }`}
-            onClick={() => setStep(1)}
+            onClick={() => changeStep(1)}
           >
             <div
               className={`flex items-center justify-center rounded-full transition duration-100 ease-in-out h-12 w-12 py-3 border-2 ${
@@ -353,7 +395,7 @@ const Stepper = (props: ProductComponentProps) => {
                   : 'text-pink-600'
                 : 'text-gray-500'
             }`}
-            onClick={() => setStep(2)}
+            onClick={() => changeStep(2)}
           >
             <div
               className={`flex items-center justify-center rounded-full transition duration-100 ease-in-out h-12 w-12 py-3 border-2 ${
@@ -396,7 +438,7 @@ const Stepper = (props: ProductComponentProps) => {
                   : 'text-pink-600'
                 : 'text-gray-500'
             }`}
-            onClick={() => setStep(3)}
+            onClick={() => changeStep(3)}
           >
             <div
               className={`flex items-center justify-center rounded-full transition duration-100 ease-in-out h-12 w-12 py-3 border-2 ${
@@ -445,7 +487,7 @@ const Stepper = (props: ProductComponentProps) => {
                     min="1"
                     value={formData.qty}
                     onChange={handleInputChange}
-                    className="w-24 appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-pink-600 focus:shadow-md"
+                    className="w-full md:w-24 appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-pink-600 focus:shadow-md"
                   />
                 </div>
               </div>
@@ -455,7 +497,7 @@ const Stepper = (props: ProductComponentProps) => {
                 </div>
                 <div className="bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u">
                   <select
-                    className="w-64 md:flex-1 appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-pink-600 focus:shadow-md"
+                    className="w-full md:w-64 md:flex-1 appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-pink-600 focus:shadow-md"
                     value={selectedOption}
                     onChange={handleSelectChange}
                   >
@@ -491,6 +533,139 @@ const Stepper = (props: ProductComponentProps) => {
                   Addons
                 </div>
                 {renderAddonCheckboxes()}
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row">
+              <div className="w-full mx-2 md:flex-2 svelte-1l8159u">
+                <div className="font-bold h-6 mt-3 mb-2 text-gray-600 text-xs leading-8 uppercase">
+                  Handsign/drawing/etc
+                </div>
+                <div className="bg-white text-black">
+                  <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                    <div className="flex gap-2 justify-center">
+                      <button
+                        className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => paintableRef.current?.clear()}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => paintableRef.current?.undo()}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => paintableRef.current?.redo()}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => setUseEraser(!useEraser)}
+                      >
+                        {useEraser ? (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            className="w-6 h-6"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414l-3.879-3.879zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                    <div className="flex gap-2 items-center w-full px-2">
+                      <input
+                        className=""
+                        type="color"
+                        value={color}
+                        onChange={(e) => setColor(e.target.value)}
+                      />
+                      <input
+                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                        type="range"
+                        defaultValue={5}
+                        onChange={(e) => setThickness(Number(e.target.value))}
+                        min={1}
+                        max={30}
+                        step={1}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center mt-2 rounded-lg">
+                    <Paintable
+                      width={250}
+                      height={150}
+                      active={active}
+                      color={color}
+                      thickness={thickness}
+                      useEraser={useEraser}
+                      ref={paintableRef}
+                      image={imageResult ? imageResult : undefined}
+                      onSave={(image: string) => {
+                        setImageResult(image);
+                      }}
+                    ></Paintable>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="mt-3">
