@@ -281,6 +281,17 @@ const Stepper = (props: ProductComponentProps) => {
       return;
     }
 
+    toast.info('Processing order...', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
     const currentDate = new Date();
     const formattedDateTime = currentDate.toLocaleString();
     const selectedAddons = addons.filter((addon) =>
@@ -301,6 +312,17 @@ const Stepper = (props: ProductComponentProps) => {
 
     try {
       const docRef = await addDoc(collection(fireStore, 'order'), orderData);
+      toast.success('Order submitted', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+
       router.push(`/order/${docRef.id}`);
     } catch (error) {
       console.error('Error adding document: ', error);

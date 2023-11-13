@@ -1,6 +1,6 @@
 import React from 'react';
-import product from '../../assets/about/product.png';
-import bottle from '../../assets/about/bottle.png';
+import product from '../../assets/about/product.svg';
+import bottle from '../../assets/about/bottle.svg';
 import Image from 'next/image';
 
 const About = () => {
@@ -12,7 +12,7 @@ const About = () => {
   const description2 =
     'Anonymity: At Biflow, we understand the beauty of mystery. Our service allows you to express your feelings through flowers while maintaining your anonymity. Customization: Each of our flowers comes with a customized bottled text, adding a personal touch to your gift. This small detail can create a lasting impression and memory for the receiver. Express Feelings: Biflow is not just about sending flowers; it’s about sharing happiness and encouraging people to express their feelings. Whether it’s love, gratitude, or friendship, we help you convey your emotions in a unique and memorable way.Fun and Intrigue: The inclusion of a “secret hand sign” in the bottled text adds an element of fun and intrigue. It’s not just about receiving flowers; it’s about guessing who the sender might be!';
   return (
-    <section className={`bg-background py-8`} id="about">
+    <section className={`bg-background`} id="about">
       <div className={`max-w-5xl mx-auto m-8`}>
         <h1
           className={`w-full my-2 text-5xl font-bold leading-tight text-center text-black font-handwritten`}

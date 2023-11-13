@@ -219,7 +219,6 @@ var Paintable = /** @class */ (function () {
     }
   };
   Paintable.prototype.onDrawEnd = function () {
-    console.log('end');
     this.enableScroll();
     if (this.active) {
       this.stopLongPressTimer();
