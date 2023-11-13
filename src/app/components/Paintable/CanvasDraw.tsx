@@ -1,8 +1,9 @@
 'use client';
 import React, { useRef, useState } from 'react';
-import { Paintable, PaintableRef } from 'paintablejs/react';
+import { Paintable } from './paintable';
+import { PaintableRef } from './PaintableRef';
 import styles from './App.module.css';
-import '../../../globals.css';
+import '../../globals.css';
 
 const CanvasDraw = () => {
   const paintableRef = useRef<PaintableRef>(null);
@@ -20,8 +21,9 @@ const CanvasDraw = () => {
           <button onClick={() => paintableRef.current?.redo()}>Redo</button>
           <button
             onClick={() => {
-              setUseEraser(false);
-              setActive(!active);
+              // setUseEraser(false);
+              // setActive(!active);
+              paintableRef.current?.save();
             }}
           >
             {active ? 'save' : 'edit'}

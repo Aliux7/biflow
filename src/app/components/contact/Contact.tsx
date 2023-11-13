@@ -26,7 +26,7 @@ const Contact = () => {
         >
           <i className="uil uil-whatsapp-alt text-pink-500 text-6xl"></i>
           <h3>Whatsapp</h3>
-          <p>+62-8383838 322342</p>
+          <p>+62 8588 7530 911</p>
         </div>
         <div
           className={`flex flex-col p-4 items-center justify-center w-full h-64 border border-red-500 rounded ${
@@ -35,7 +35,7 @@ const Contact = () => {
         >
           <i className="uil uil-line text-pink-500 text-6xl"></i>
           <h3>Line</h3>
-          <p>+62-8383838 322342</p>
+          <p>TBA</p>
         </div>
         <div
           className={`flex flex-col p-4 items-center justify-center w-full h-64 border border-red-500 rounded ${
@@ -44,7 +44,7 @@ const Contact = () => {
         >
           <i className="uil uil-instagram-alt text-pink-500 text-6xl"></i>
           <h3>Instagram</h3>
-          <p>+62-8383838 322342</p>
+          <p>@binusflower</p>
         </div>
       </div>
     </section>

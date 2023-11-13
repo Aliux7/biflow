@@ -3,7 +3,6 @@ import Footer from '@/app/components/footer/Footer';
 import Header from '@/app/components/header/Header';
 import React from 'react';
 import '../../globals.css';
-
 const page = () => {
   return (
     <>
