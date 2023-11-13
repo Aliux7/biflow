@@ -4,7 +4,7 @@ import { fireStore } from '../../../firebase/config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
-import { Paintable } from '../Paintable/paintable';
+import { Paintable } from '../Paintable/Paintable';
 import { PaintableRef } from '../Paintable/PaintableRef';
 import './canvas.css';
 interface Addon {
