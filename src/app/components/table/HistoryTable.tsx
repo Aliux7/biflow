@@ -1,17 +1,7 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
 import { auth, fireStore } from '../../../firebase/config';
-
-const columns: GridColDef[] = [
-  { field: 'flower', headerName: 'Flower', width: 130 },
-  { field: 'quantity', headerName: 'Quantity', width: 130 },
-  { field: 'dateOrder', headerName: 'Date Order', width: 200 },
-  { field: 'name', headerName: 'Name', width: 130 },
-  { field: 'room', headerName: 'Room', width: 130 },
-  { field: 'status', headerName: 'Status', width: 130 },
-];
 
 interface PhoneProps {
   phone: string;
@@ -20,40 +10,49 @@ interface PhoneProps {
 interface OrderData {
   id: string;
   phone: string;
-  flower: string;
+  sendingDay: string;
+  sendingTime: string;
+  product: string;
+  color: string;
+  addons: string;
+  orderDate: string;
   quantity: number;
-  dateOrder: string; 
-  name: string;
-  room: string;
+  recipientName: string;
+  recipientPhone: string;
+  recipientClass: string;
   status: string;
 }
 
 export default function DataTable({ phone }: PhoneProps) {
-  
   const [rows, setRows] = useState<OrderData[]>([]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(query(collection(fireStore, 'order'), where('phone', '==', phone)));
+        const querySnapshot = await getDocs(query(collection(fireStore, 'order'), where('recipient_phone', '==', phone)));
         const data: OrderData[] = querySnapshot.docs.map((doc) => {
           const docData = doc.data();
-          const dateOrder = new Date(docData.dateOrder);
-          const formattedDate = dateOrder.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+          const dateOrder = new Date(docData.orderDate);
+          const formattedDate = dateOrder.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric'});
           return {
             id: doc.id,
-            phone: docData.phone,
-            flower: docData.flower,
-            quantity: docData.quantity,
-            dateOrder: formattedDate,
-            name: docData.name,
-            room: docData.room,
-            status: docData.status,
+            phone: docData.recipientPhone,
+            sendingDay: docData.sendingDay,
+            sendingTime: docData.sendingTime,
+            product: docData.product,
+            color: docData.color,
+            addons: docData.addons,
+            orderDate: formattedDate,
+            quantity: docData.qty,
+            recipientName: docData.recipientName,
+            recipientPhone: docData.recipientPhone,
+            recipientClass: docData.recipientClass,
+            status: docData.status
           } as OrderData;
         });
         setRows(data);
       } catch (error) {
-        console.error('Error fetching notification data:', error);
+        console.error('Error fetching order data:', error);
       }
     };
 
@@ -61,17 +60,67 @@ export default function DataTable({ phone }: PhoneProps) {
   }, [phone]);
 
   return (
-    <div style={{ height: 400, width: '100%' }} className='historyTable'>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-      />
+    <div className="p-5 h-[50vh] bg-gray-100 overflow-y-scroll rounded-md">
+      <h1 className="text-xl mb-2">Your orders</h1>
+
+      <div className="overflow-auto rounded-lg shadow hidden md:block">
+        <table className="w-full">
+          <thead className="bg-gray-50 border-b-2 border-gray-200">
+          <tr>
+            <th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">ID.</th>
+            <th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">Product</th>
+            <th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">Quantity</th>
+            <th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">Add Ons</th>
+            <th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">Color</th>
+            <th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">Status</th>
+            <th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">Order Date</th>
+          </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-100">
+
+          {rows.map((row, index) => (
+            <tr className="bg-white">
+              <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                <p className="font-bold text-blue-500">{row.id}</p>
+              </td>
+              <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{row.product}</td>
+              <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{row.quantity}</td>
+              <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{row.addons}</td>
+              <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{row.color}</td>
+              <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+              <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">{row.status}</span>
+              </td>
+              <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{row.orderDate}</td>
+            </tr>
+          ))}
+          
+          </tbody>
+        </table>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+        
+        {rows.map((row, index) => (
+          <div className="bg-white space-y-3 p-4 rounded-lg shadow">
+            <div>
+              <p className="text-blue-500 font-bold">{row.id}</p>
+            </div>
+            <div className="flex items-center space-x-2 text-sm">
+              <div className="text-gray-500">{row.orderDate}</div>
+              <div>
+                <span
+                  className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">{row.status}</span>
+              </div>
+            </div>
+            <div className="text-sm text-gray-700">
+              {row.quantity} {row.addons} {row.color}
+            </div>
+            <div className="text-sm font-medium text-black">
+              {row.product}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

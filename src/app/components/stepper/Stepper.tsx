@@ -308,6 +308,7 @@ const Stepper = (props: ProductComponentProps) => {
       addons: selectedAddonNames,
       product: props.name,
       image: imageResult,
+      status: 'Pending'
     };
 
     try {
