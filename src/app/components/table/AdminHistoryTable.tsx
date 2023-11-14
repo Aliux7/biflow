@@ -73,7 +73,7 @@ export default function DataTable() {
 
   return (
     <div className="p-5 h-[50vh] bg-gray-100 overflow-y-scroll rounded-md">
-      <h1 className="text-xl mb-2">Your orders</h1>
+      <h1 className="text-xl mb-2">History Transaction</h1>
 
       <div className="overflow-auto rounded-lg shadow hidden md:block">
         <table className="w-full">

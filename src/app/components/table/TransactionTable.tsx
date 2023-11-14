@@ -84,7 +84,7 @@ export default function DataTable(props: InputFormProps) {
 
   return (
     <div className="p-5 h-[50vh] bg-gray-100 overflow-y-scroll rounded-md">
-      <h1 className="text-xl mb-2">Your orders</h1>
+      <h1 className="text-xl mb-2">Recently Orders</h1>
 
       <div className="overflow-auto rounded-lg shadow hidden md:block">
         <table className="w-full">
@@ -134,7 +134,7 @@ export default function DataTable(props: InputFormProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
         
         {rows.map((row, index) => (
-          <div className="bg-white space-y-3 p-4 rounded-lg shadow">
+          <div className="bg-white space-y-3 p-4 rounded-lg shadow" onClick={() => handleRowClick(row)}>
             <div>
               <p className="text-blue-500 font-bold">{row.id}</p>
             </div>
@@ -150,6 +150,15 @@ export default function DataTable(props: InputFormProps) {
             </div>
             <div className="text-sm font-medium text-black">
               {row.product}
+            </div>
+            <div className="text-sm font-medium text-black">
+              {row.recipientClass} - {row.recipientName} - {row.recipientPhone}
+            </div>
+            <div className="text-sm font-medium text-black">
+              Sender: {row.senderPhone}
+            </div>
+            <div className="text-sm font-medium text-black">
+              Sending Time: {row.sendingDay}
             </div>
           </div>
         ))}

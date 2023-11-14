@@ -37,6 +37,11 @@ const AdminHeader = () => {
                                 <span className='nav-title'>History</span>
                             </a>
                         </li>
+                        <li className="nav-item">
+                            <a href="/admin/product" className="nav-link">
+                                <span className='nav-title'>Product</span>
+                            </a>
+                        </li>
                         <li className="nav-item" style={{width:'max-content'}}>
                             <a href="#" className="nav-link" onClick={handleLogout}>
                                 <span className='nav-title'>{email}</span>
@@ -44,13 +49,15 @@ const AdminHeader = () => {
                         </li>
                     </ul>
                     {Toggle === true && (
-                        <i className="uil uil-times nav-close" onClick={() => showMenu(!Toggle)}></i>
+                        <div>
+                            <i className="uil uil-times nav-close" onClick={() => showMenu(!Toggle)}></i>
+                        </div>
                     )}
                 </div>
                 
                 {Toggle === false && (
                     <div className="nav-toggle" onClick={() => showMenu(!Toggle)}>
-                        <i className="uil uil-apps"></i>
+                        <i className="uil uil-apps mr-12"></i>
                     </div>
                 )}
             </nav> 

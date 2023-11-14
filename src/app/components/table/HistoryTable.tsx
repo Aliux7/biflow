@@ -9,9 +9,8 @@ interface PhoneProps {
 
 interface OrderData {
   id: string;
-  phone: string;
+  senderPhone: string;
   sendingDay: string;
-  sendingTime: string;
   product: string;
   color: string;
   addons: string;
@@ -29,25 +28,41 @@ export default function DataTable({ phone }: PhoneProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(query(collection(fireStore, 'order'), where('recipient_phone', '==', phone)));
+        const querySnapshot = await getDocs(query(collection(fireStore, 'order'), where('sender_phone', '==', phone)));
         const data: OrderData[] = querySnapshot.docs.map((doc) => {
           const docData = doc.data();
           const dateOrder = new Date(docData.orderDate);
           const formattedDate = dateOrder.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric'});
+          const sendingDays: { day: string, slot: string }[] = [
+            { day: 'Monday', slot: 'mondaySlot' },
+            { day: 'Tuesday', slot: 'tuesdaySlot' },
+            { day: 'Wednesday', slot: 'wednesdaySlot' },
+            { day: 'Thursday', slot: 'thursdaySlot' },
+            { day: 'Friday', slot: 'fridaySlot' },
+          ];
+          
+          const sendingDayValues: string[] = sendingDays
+            .map(dayInfo => {
+              const slotValue = docData[dayInfo.slot];
+              return slotValue !== "" ? `${dayInfo.day} ${slotValue}` : "";
+            })
+            .filter(dayString => dayString !== "");
+          
+          const sendingDayString = sendingDayValues.length > 0 ? sendingDayValues.join(', ') : "";
+          
           return {
             id: doc.id,
-            phone: docData.recipientPhone,
-            sendingDay: docData.sendingDay,
-            sendingTime: docData.sendingTime,
+            senderPhone: docData.sender_phone,
             product: docData.product,
             color: docData.color,
             addons: docData.addons,
             orderDate: formattedDate,
             quantity: docData.qty,
-            recipientName: docData.recipientName,
-            recipientPhone: docData.recipientPhone,
-            recipientClass: docData.recipientClass,
-            status: docData.status
+            recipientName: docData.recipient_name,
+            recipientPhone: docData.recipient_phone,
+            recipientClass: docData.recipient_class,
+            status: docData.status,
+            sendingDay: sendingDayString
           } as OrderData;
         });
         setRows(data);
