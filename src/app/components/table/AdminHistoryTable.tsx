@@ -18,18 +18,13 @@ interface OrderData {
   status: string;
 }
 
-interface InputFormProps {
-  setOverlay: (value: boolean, rowId?: string) => void;
-}
-
-export default function DataTable(props: InputFormProps) {
+export default function DataTable() {
   const [rows, setRows] = useState<OrderData[]>([]);
-  const [selectedRow, setSelectedRow] = useState<OrderData | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(query(collection(fireStore, 'order'), where('status', '==', 'Pending')));
+        const querySnapshot = await getDocs(query(collection(fireStore, 'order'), where('status', '==', 'Done')));
         const data: OrderData[] = querySnapshot.docs.map((doc) => {
           const docData = doc.data();
           const dateOrder = new Date(docData.orderDate);
@@ -76,12 +71,6 @@ export default function DataTable(props: InputFormProps) {
     fetchData();
   }, []);
 
-  
-  const handleRowClick = (row: OrderData) => {
-    setSelectedRow(row);
-    props.setOverlay(true, row.id); 
-  };
-
   return (
     <div className="p-5 h-[50vh] bg-gray-100 overflow-y-scroll rounded-md">
       <h1 className="text-xl mb-2">Your orders</h1>
@@ -104,10 +93,10 @@ export default function DataTable(props: InputFormProps) {
             <th className="p-3 text-sm font-semibold tracking-wide text-left">Sending Time</th>
           </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 cursor-pointer">
+          <tbody className="divide-y divide-gray-100">
 
           {rows.map((row, index) => (
-            <tr className="bg-white" key={index} onClick={() => handleRowClick(row)}>
+            <tr className="bg-white">
               <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
                 <p className="font-bold text-blue-500">{row.id}</p>
               </td>

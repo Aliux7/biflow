@@ -67,7 +67,6 @@ const page = () => {
             <div className={styles.primaryButton}>
               <input type="submit" value="Login" onClick={loginButton}/>
             </div>
-            <p>Not Registered ? <Link href="/register" style={{color: "var(--minor-color)"}}>Create an account</Link></p>
           </div>
         </div>
       </div>

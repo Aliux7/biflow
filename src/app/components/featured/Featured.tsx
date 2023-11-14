@@ -1,6 +1,5 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import InputOrder from '../form/InputOrder';
 import { collection, getDocs, DocumentData } from 'firebase/firestore';
 import { fireStore } from '../../../firebase/config';
 import { ToastContainer, toast } from 'react-toastify';

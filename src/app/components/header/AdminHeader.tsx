@@ -1,14 +1,25 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './header.css'
+import { useRouter } from 'next/navigation'
 
-interface EmailProps {
-    email: string;
-}
-
-const AdminHeader = ({ email }: EmailProps) => {
+const AdminHeader = () => {
     const [Toggle, showMenu] = useState(false)
+    const router = useRouter();
 
+    const emailProp = typeof window !== 'undefined' ? localStorage.getItem("email") : null;
+    const email = emailProp ? emailProp : "Default Email";
+
+    const handleLogout = () => {
+        localStorage.clear();
+        router.push('/login')
+    };
+    
+    useEffect(() => {
+        if (email === "Default Email") {
+            router.push('/login');
+        }
+    }, [email, router]);
 
     return (
         <header className="header">
@@ -27,12 +38,7 @@ const AdminHeader = ({ email }: EmailProps) => {
                             </a>
                         </li>
                         <li className="nav-item" style={{width:'max-content'}}>
-                            <a href="/admin/addproduct" className="nav-link">
-                                <span className='nav-title'>Product</span>
-                            </a>
-                        </li>
-                        <li className="nav-item" style={{width:'max-content'}}>
-                            <a href="#" className="nav-link">
+                            <a href="#" className="nav-link" onClick={handleLogout}>
                                 <span className='nav-title'>{email}</span>
                             </a>
                         </li>
