@@ -61,8 +61,7 @@ export default function ProductDetail({
   }, [params.orderId]);
 
   const openLinkInNewTab = () => {
-    const urlToOpen =
-      "https://api.whatsapp.com/send/?phone=6285887530911&text=Hi%2C+I've+Placed+An+Order,+Please+Proceed+My+Payment+Receipt+And+Order+Thanks&type=phone_number&app_absent=0";
+    const urlToOpen = `https://api.whatsapp.com/send/?phone=6285887530911&text=Order+%23${params.orderId}%0A%0AHi%2C+I've+Placed+An+Order,+Please+Proceed+My+Payment+Receipt+And+Order+Thanks&type=phone_number&app_absent=0`;
     window.open(urlToOpen, '_blank');
   };
 
@@ -74,19 +73,19 @@ export default function ProductDetail({
         <header className="flex flex-col items-center px-8 pt-20 text-lg text-center bg-white border-t-8 border-pink-700 md:block lg:block xl:block print:block md:items-start lg:items-start xl:items-start print:items-start md:text-left lg:text-left xl:text-left print:text-left print:pt-8 print:px-2 md:relative lg:relative xl:relative print:relative">
           <Image
             alt="logo"
-            className="w-3/6 h-auto md:w-1/4 lg:ml-12 xl:ml-12 print:px-0 print:py-0o"
+            className="w-3/6 h-auto md:w-1/4 lg:ml-12 xl:ml-12 print:w-1/4 print:px-0 print:py-0o"
             src={logoname}
           />
-          <div className="flex flex-row mt-12 mb-2 ml-0 text-2xl font-bold md:text-3xl lg:text-4xl xl:text-4xl print:text-2xl lg:ml-12 xl:ml-12">
-            ORDER
-            <div className="text-pink-700">
+          <div className="flex flex-col sm:flex-row mt-12 mb-2 ml-0 sm:text-2xl font-bold md:text-3xl lg:text-4xl xl:text-4xl print:text-2xl lg:ml-12 xl:ml-12">
+            <div>ORDER</div>
+            <div className="text-pink-700 text-md sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl">
               <span className="mr-4 text-sm"></span> #
+              <span id="invoice_id" className="text-gray-500">
+                {params.orderId}
+              </span>
             </div>
-            <span id="invoice_id" className="text-gray-500">
-              {params.orderId}
-            </span>
           </div>
-          <div className="flex flex-col lg:ml-12 xl:ml-12 print:text-sm">
+          <div className="flex flex-col lg:ml-12 xl:ml-12 text-sm sm:text-md print:text-sm">
             <span>Date: {orderData?.orderDate}</span>
           </div>
           {loading ? (
@@ -99,9 +98,12 @@ export default function ProductDetail({
             </div>
           )}
 
-          <div className="flex flex-col m-12 text-center lg:m-12 md:flex-none md:text-left md:relative md:m-0 md:mt-16 lg:flex-none lg:text-left lg:relative xl:flex-none xl:text-left xl:relative print:flex-none print:text-left print:relative print:m-0 print:mt-6 print:text-sm">
-            Take a screenshot of this submitted form and send it to our whatsapp
-            here, then we'll contact you for the payment! Thankyou~!
+          <div className="flex flex-col m-12 text-center lg:m-12 md:flex-none md:text-left md:relative md:m-0 md:mt-16 lg:flex-none lg:text-left lg:relative xl:flex-none xl:text-left xl:relative print:flex-none print:text-left print:relative print:m-0 print:mt-6 print:text-sm print:hidden">
+            <p>
+              Take a screenshot of this submitted form or send the order ID and
+              send it to our whatsapp here, then we'll contact you for the
+              payment! Thankyou~!
+            </p>
             <div>Whatsapp: +6285887530911</div>
             <button
               onClick={openLinkInNewTab}

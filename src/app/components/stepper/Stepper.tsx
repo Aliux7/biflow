@@ -163,7 +163,7 @@ const Stepper = (props: ProductComponentProps) => {
   };
 
   const paintableRef = useRef<PaintableRef>(null);
-  const [color, setColor] = useState('#0000FF');
+  const [color, setColor] = useState('#ec4899');
   const [active, setActive] = useState(true);
   const [thickness, setThickness] = useState(5);
   const [useEraser, setUseEraser] = useState(false);
@@ -308,7 +308,7 @@ const Stepper = (props: ProductComponentProps) => {
       addons: selectedAddonNames,
       product: props.name,
       image: imageResult,
-      status: 'Pending'
+      status: 'Pending',
     };
 
     try {
