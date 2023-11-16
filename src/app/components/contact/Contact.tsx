@@ -18,34 +18,39 @@ const Contact = () => {
           </a>
         </h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div
-          className={`flex flex-col p-4 items-center justify-center w-full h-64 border border-red-500 rounded ${
-            animate ? 'animate' : ''
-          }`}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a
+          aria-label="whatsapp"
+          href="https://api.whatsapp.com/send/?phone=6285887530911"
+          target="_blank"
+          rel="noreferrer"
         >
-          <i className="uil uil-whatsapp-alt text-pink-500 text-6xl"></i>
-          <h3>Whatsapp</h3>
-          <p>+62 8588 7530 911</p>
-        </div>
-        <div
-          className={`flex flex-col p-4 items-center justify-center w-full h-64 border border-red-500 rounded ${
-            animate ? 'animate' : ''
-          }`}
+          <div
+            className={`flex flex-col p-4 items-center justify-center w-full h-64 border border-red-500 rounded ${
+              animate ? 'animate' : ''
+            }`}
+          >
+            <i className="uil uil-whatsapp-alt text-pink-500 text-6xl"></i>
+            <h3>Whatsapp</h3>
+            <p>+62 8588 7530 911</p>
+          </div>
+        </a>
+        <a
+          aria-label="instagram"
+          href="https://www.instagram.com/biflow.id"
+          target="_blank"
+          rel="noreferrer"
         >
-          <i className="uil uil-line text-pink-500 text-6xl"></i>
-          <h3>Line</h3>
-          <p>TBA</p>
-        </div>
-        <div
-          className={`flex flex-col p-4 items-center justify-center w-full h-64 border border-red-500 rounded ${
-            animate ? 'animate' : ''
-          }`}
-        >
-          <i className="uil uil-instagram-alt text-pink-500 text-6xl"></i>
-          <h3>Instagram</h3>
-          <p>@binusflower</p>
-        </div>
+          <div
+            className={`flex flex-col p-4 items-center justify-center w-full h-64 border border-red-500 rounded ${
+              animate ? 'animate' : ''
+            }`}
+          >
+            <i className="uil uil-instagram-alt text-pink-500 text-6xl"></i>
+            <h3>Instagram</h3>
+            <p>@biflow.id</p>
+          </div>
+        </a>
       </div>
     </section>
   );

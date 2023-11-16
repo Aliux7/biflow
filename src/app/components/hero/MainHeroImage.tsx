@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import heroimage from '../../assets/about/hero.jpg';
+import heroimage from '../../assets/about/hero.webp';
 
 const MainHeroImage = () => {
   return (
