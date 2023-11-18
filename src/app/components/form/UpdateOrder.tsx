@@ -19,6 +19,7 @@ export default function UpdateOrder(props: UpdateOrderProps) {
   const [quantity, setQuantity] = useState(1);
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
+  const [status, setStatus] = useState("Unpaid");
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
   const [animate, setAnimate] = useState(true);
@@ -42,6 +43,7 @@ export default function UpdateOrder(props: UpdateOrderProps) {
         setName(orderData.recipient_name);
         setRoom(orderData.recipient_class);
         setImageSrc(orderData.image || null);
+        setStatus(orderData.status);
       } else {
         console.error('Order not found.');
       }
@@ -54,7 +56,7 @@ export default function UpdateOrder(props: UpdateOrderProps) {
     if (props.selectedOrderId) {
       try {
         const orderRef = doc(fireStore, 'order', props.selectedOrderId);
-        await updateDoc(orderRef, { status: "Done" });
+        await updateDoc(orderRef, { status: status });
         window.location.reload();
       } catch (error) {
         console.error('Error updating order status:', error);
@@ -95,6 +97,16 @@ export default function UpdateOrder(props: UpdateOrderProps) {
               </div>
             )}
           </div>
+          <div className={styles.inputBox}>
+            <select name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
+              <option value="" disabled>Select an option</option>
+              <option value="Unpaid">Unpaid</option>
+              <option value="Paid">Paid</option>
+              <option value="Done">Done</option>
+            </select>
+            <i className="fa-solid fa-bars-progress"></i>
+          </div>
+
           <div className={styles.primaryButton}>
             <input type="submit" value="Update Status" onClick={orderButton}/>
           </div>

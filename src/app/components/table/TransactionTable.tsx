@@ -29,7 +29,7 @@ export default function DataTable(props: InputFormProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(query(collection(fireStore, 'order'), where('status', '==', 'Pending')));
+        const querySnapshot = await getDocs(query(collection(fireStore, 'order'), where('status', '!=', 'Done')));
         const data: OrderData[] = querySnapshot.docs.map((doc) => {
           const docData = doc.data();
           const dateOrder = new Date(docData.orderDate);
