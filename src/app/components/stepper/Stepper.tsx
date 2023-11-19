@@ -32,6 +32,7 @@ const Stepper = (props: ProductComponentProps) => {
     recipient_phone: '',
     recipient_class: '',
   });
+  const [agreed, setAgreed] = useState(false);
 
   const resetForm = () => {
     setFormData({
@@ -111,7 +112,7 @@ const Stepper = (props: ProductComponentProps) => {
               id={addon.id}
               checked={selectedAddonIds.includes(addon.id)}
               onChange={() => handleAddonCheckboxChange(addon.id)}
-              className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:bg-pink-500 checked:before:bg-pink-500 hover:before:opacity-10"
+              className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-400 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:bg-pink-500 checked:before:bg-pink-500 hover:before:opacity-10"
             />
             <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
               <svg
@@ -204,11 +205,13 @@ const Stepper = (props: ProductComponentProps) => {
     } else if (step === 3) {
       if (!formData.recipient_name) {
         validationErrors.sender_phone = 'Please input recipient name';
-      } else if (!formData.recipient_phone) {
-        validationErrors.sender_phone = 'Please input recipient phone';
-      } else if (!formData.recipient_class) {
-        validationErrors.sender_phone = 'Please input recipient class room';
       }
+      // else if (!formData.recipient_phone) {
+      //   validationErrors.sender_phone = 'Please input recipient phone';
+      // }
+      // else if (!formData.recipient_class) {
+      //   validationErrors.sender_phone = 'Please input recipient class room';
+      // }
     }
 
     setErrors(validationErrors);
@@ -258,12 +261,13 @@ const Stepper = (props: ProductComponentProps) => {
 
     if (!formData.recipient_name) {
       validationErrors.recipient_name = 'Please input recipient name';
-    } else if (!formData.recipient_phone) {
-      validationErrors.recipient_phoneAndRoom = 'Please input recipient phone';
-    } else if (!formData.recipient_class) {
-      validationErrors.recipient_phoneAndRoom =
-        'Please input recipient class room';
     }
+    // else if (!formData.recipient_phone) {
+    //   validationErrors.recipient_phoneAndRoom = 'Please input recipient phone';
+    // } else if (!formData.recipient_class) {
+    //   validationErrors.recipient_phoneAndRoom =
+    //     'Please input recipient class room';
+    // }
 
     setErrors(validationErrors);
 
@@ -477,7 +481,7 @@ const Stepper = (props: ProductComponentProps) => {
             <div className="flex flex-col md:flex-row">
               <div className="w-full mx-2 flex-1 svelte-1l8159u">
                 <div className="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase">
-                  Qty
+                  Qty<span className="text-red-500"> *</span>
                 </div>
                 <div className="bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u">
                   <input
@@ -494,7 +498,7 @@ const Stepper = (props: ProductComponentProps) => {
               </div>
               <div className="w-full mx-2 md:flex-2 svelte-1l8159u">
                 <div className="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase">
-                  Color
+                  Color<span className="text-red-500"> *</span>
                 </div>
                 <div className="bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u">
                   <select
@@ -1037,7 +1041,7 @@ const Stepper = (props: ProductComponentProps) => {
             <div className="flex flex-col md:flex-row">
               <div className="w-full mx-2 flex-1 svelte-1l8159u">
                 <div className="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase">
-                  Your Phone Number
+                  Your Phone Number<span className="text-red-500"> *</span>
                 </div>
                 <div className="bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u">
                   <input
@@ -1062,7 +1066,7 @@ const Stepper = (props: ProductComponentProps) => {
             <div className="flex flex-col md:flex-row">
               <div className="w-full mx-2 flex-1 svelte-1l8159u">
                 <div className="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase">
-                  Recipient Name
+                  Recipient Name<span className="text-red-500"> *</span>
                 </div>
                 <div className="bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u">
                   <input
@@ -1117,6 +1121,47 @@ const Stepper = (props: ProductComponentProps) => {
             <div className="text-red-500 text-xs mt-1">
               {errors.recipient_phoneAndRoom}
             </div>
+            <div className="inline-flex items-center">
+              <label className="relative flex cursor-pointer items-center rounded-full p-3">
+                <input
+                  type="checkbox"
+                  id="agree"
+                  checked={agreed}
+                  onChange={() => setAgreed(!agreed)}
+                  className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-400 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:bg-pink-500 checked:before:bg-pink-500 hover:before:opacity-10"
+                />
+                <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-3.5 w-3.5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    stroke="currentColor"
+                    strokeWidth="1"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+              </label>
+              <label
+                className="mt-px cursor-pointer select-none font-light text-gray-700"
+                htmlFor="agree"
+              >
+                I agree to the{' '}
+                <a
+                  href="/terms_conditions"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-pink-500"
+                >
+                  terms and conditions
+                </a>
+              </label>
+            </div>
           </div>
         )}
         <div className="flex p-2 mt-4">
@@ -1163,13 +1208,15 @@ const Stepper = (props: ProductComponentProps) => {
               </button>
             ) : (
               <button
+                disabled={!agreed}
                 onClick={handleSubmit}
-                className="text-base hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-        hover:bg-pink-200  
-        bg-pink-100 
-        text-pink-700 
+                className={`text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
+        hover:bg-pink-600  
+        bg-pink-600 
+        text-pink-100 
         border duration-200 ease-in-out 
-        border-pink-600 transition"
+        border-pink-600 transition
+  ${!agreed ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 Submit
               </button>

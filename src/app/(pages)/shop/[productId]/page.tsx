@@ -64,7 +64,9 @@ export default function ProductDetail({
           <div className="md:flex">
             <div className="w-full h-64 md:w-1/2 lg:h-96">
               <Image
-                className="h-full w-full rounded-lg object-cover max-w-lg mx-auto border-4 border-gray-5200"
+                className="h-full w-full rounded-lg object-cover max-w-lg mx-auto border-4 border-pink-300"
+                width={500}
+                height={500}
                 src={productData?.img ? productData?.img : product}
                 alt="product"
               />
