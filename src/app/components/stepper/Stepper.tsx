@@ -509,6 +509,7 @@ const Stepper = (props: ProductComponentProps) => {
                     <option value="" disabled>
                       Select color
                     </option>
+                    <option value="random">Random</option>
                     <option value="red">Red</option>
                     <option value="blue">Blue</option>
                     <option value="pink">Pink</option>
