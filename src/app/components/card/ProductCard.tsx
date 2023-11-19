@@ -31,6 +31,8 @@ export default function ProductCard(props: ProductComponentProps) {
     >
       <Image
         className="h-48 w-full object-cover object-center"
+        width={500}
+        height={500}
         src={props.img ? props.img : product}
         alt="Product Image"
       />

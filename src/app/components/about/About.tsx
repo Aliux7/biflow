@@ -1,6 +1,6 @@
 import React from 'react';
-import product from '../../assets/about/product.svg';
-import bottle from '../../assets/about/bottle.svg';
+import product from '../../assets/about/product.png';
+import bottle from '../../assets/about/bottle.png';
 import Image from 'next/image';
 
 const About = () => {
