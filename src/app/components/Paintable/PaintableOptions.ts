@@ -42,6 +42,7 @@ export declare class Paintable {
   undo(): void;
   redo(): void;
   save(): void;
+  addText(text: String, font: String, color: String): void;
   clearCanvas(): void;
   private setStyle;
   private registerEvents;
