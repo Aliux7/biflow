@@ -170,10 +170,57 @@ var Paintable = /** @class */ (function () {
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
   };
-
   Paintable.prototype.enableScroll = function () {
     document.body.style.overflow = '';
     document.documentElement.style.overflow = '';
+  };
+  Paintable.prototype.addText = function (
+    text,
+    font = '12px Arial',
+    color = '#000000'
+  ) {
+    this.undoList = __spreadArrays(this.undoList, [this.canvas.toDataURL()]);
+
+    const maxWidth = this.width - 15; // Set maximum width based on canvas width
+    const lineHeight = parseInt(font, 10); // Assuming the font size is the height
+    const words = text.split(' ');
+    let currentLine = '';
+    let lines = [];
+
+    this.context.font = font;
+    this.context.fillStyle = color;
+
+    for (const word of words) {
+      const testLine =
+        currentLine.length === 0 ? word : `${currentLine} ${word}`;
+      const testWidth = this.context.measureText(testLine).width;
+
+      if (testWidth > maxWidth) {
+        // Start a new line
+        lines.push(currentLine);
+        currentLine = word;
+      } else {
+        currentLine = testLine;
+      }
+    }
+
+    lines.push(currentLine);
+
+    // Calculate the position to center the text vertically
+    const textHeight = lines.length * lineHeight;
+    const centerY = this.height / 2 - textHeight / 2 + lineHeight / 2 + 4; // Adjust for baseline
+
+    lines.forEach((line, index) => {
+      const textMetrics = this.context.measureText(line);
+      const textWidth = textMetrics.width;
+      const x = this.width / 2 - textWidth / 2;
+      const y = centerY + index * lineHeight;
+
+      this.context.fillText(line, x, y);
+    });
+
+    // Save the canvas state after adding text
+    this.saveImage();
   };
   Paintable.prototype.setDrawOptions = function () {
     this.context.globalCompositeOperation = this.useEraser
@@ -249,8 +296,8 @@ var Paintable = /** @class */ (function () {
     return Math.atan2(point2.x - point1.x, point2.y - point1.y);
   };
   Paintable.prototype.saveImage = function () {
-    this.undoList = [];
-    this.redoList = [];
+    // this.undoList = [];
+    // this.redoList = [];
     var image = this.canvas.toDataURL();
     this.onSave(image);
   };
@@ -324,6 +371,9 @@ var Paintable$1 = React.forwardRef(function (props, ref) {
       },
       clear: function () {
         clear();
+      },
+      addText: function (text, font, color) {
+        addText(text, font, color);
       },
       save: function () {
         save();
@@ -404,6 +454,9 @@ var Paintable$1 = React.forwardRef(function (props, ref) {
   };
   var save = function () {
     paintable.saveImage();
+  };
+  var addText = function (text, font, color) {
+    paintable.addText(text, font, color);
   };
   return React__default['default'].createElement(
     React__default['default'].Fragment,
