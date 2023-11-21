@@ -676,7 +676,7 @@ const Stepper = (props: ProductComponentProps) => {
 
                   <div className="flex flex-col md:flex-row">
                     <div className="w-full px-2 flex-1 svelte-1l8159u">
-                      <div className="bg-white my-2 flex border border-gray-200 rounded flex flex-row gap-2">
+                      <div className="bg-white my-2 flex border border-gray-200 rounded flex-row gap-2">
                         <input
                           type="text"
                           name="paintable_text"
