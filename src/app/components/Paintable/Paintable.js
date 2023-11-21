@@ -59,6 +59,7 @@ var Paintable = /** @class */ (function () {
     this.height = initialOptions.height;
     this.canvas.height = this.height;
     this.active = initialOptions.active;
+    this.image = initialOptions.image;
     if (initialOptions.scaleFactor !== undefined) {
       this.scaleFactor = initialOptions.scaleFactor;
     }
@@ -150,6 +151,7 @@ var Paintable = /** @class */ (function () {
       this.undoList = __spreadArrays(this.undoList, [this.canvas.toDataURL()]);
       this.redoList = [];
       this.context.clearRect(0, 0, this.width, this.height);
+      this.restoreCanvas(this.image);
     }
   };
   Paintable.prototype.setStyle = function () {
