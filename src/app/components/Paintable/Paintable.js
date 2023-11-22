@@ -339,7 +339,8 @@ var Paintable = /** @class */ (function () {
         // Disable image smoothing for sharp rendering
         _this.context.imageSmoothingEnabled = false;
 
-        _this.context.drawImage(image_1, 0, 0);
+        // Draw the image at the appropriate scale
+        _this.context.drawImage(image_1, 0, 0, _this.width, _this.height);
       };
       image_1.src = base64Image;
     }
