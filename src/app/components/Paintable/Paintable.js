@@ -84,6 +84,15 @@ var Paintable = /** @class */ (function () {
     if (initialOptions.onSave !== undefined) {
       this.onSave = initialOptions.onSave;
     }
+
+    // Set the pixel ratio for high DPI displays
+    var pixelRatio = window.devicePixelRatio || 1;
+    canvas.width = this.width * pixelRatio;
+    canvas.height = this.height * pixelRatio;
+    canvas.style.width = this.width + 'px';
+    canvas.style.height = this.height + 'px';
+    this.context.scale(pixelRatio, pixelRatio);
+
     this.usedLineWidth = this.useEraser ? this.thicknessEraser : this.thickness;
     this.setStyle();
     this.registerEvents();
@@ -326,6 +335,10 @@ var Paintable = /** @class */ (function () {
       image_1.onload = function () {
         _this.context.globalCompositeOperation = 'source-over';
         _this.context.clearRect(0, 0, _this.width, _this.height);
+
+        // Disable image smoothing for sharp rendering
+        _this.context.imageSmoothingEnabled = false;
+
         _this.context.drawImage(image_1, 0, 0);
       };
       image_1.src = base64Image;
