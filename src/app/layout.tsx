@@ -24,10 +24,6 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
         ></link>
-        <script type="text/javascript" src="js/particles.min.js"></script>
-        <script type="text/javascript" src="js/app.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"

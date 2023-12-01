@@ -20,12 +20,12 @@
   position: absolute;
   max-width: 1000px;
   width: 100%;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 1;
   filter: blur(0);
-  z-index: 101;
+  z-index: 0;
   background-color: #f6f6f6b7;
   padding: 2rem;
   border-radius: 1rem;
